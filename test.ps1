@@ -1,2 +1,2 @@
-javac -encoding utf8 main.java
-java main test.txt
+javac -encoding utf8 taxiFee.java
+java taxiFee test.txt
