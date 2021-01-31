@@ -1,10 +1,16 @@
+
+/**
+ * Taxifee.java
+ * @author 398noe
+ * @since 2020/01/30
+ * @brief タクシーの料金を求めるプログラム
+ */
+
+/// import packages
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-/**
- * main
- */
 public class taxiFee {
 
     /**
@@ -71,21 +77,21 @@ public class taxiFee {
     /**
      * 距離のフォーマットが正しいかどうかをチェックするメソッド
      * 
-     * @param in
+     * @param in 入力される文字列距離フォーマット
+     * @throws DistanceFormatException 距離のフォーマットが違う例外
      */
     public static void distanceFormatCheck(String in) throws DistanceFormatException {
-        // in = xx.x
         try {
             String[] num = in.split(Pattern.quote("."));
-            // 形式がxx, xx. の形になっていたら例外を投げる
+            /// 形式がxx, xx. の形になっていたら例外を投げる
             if (num.length < 2) {
                 throw new DistanceFormatException("距離に小数点以下の値が含まれていません");
             }
-            // 小数点以下が2桁以上となっていたら例外を投げる
+            /// 小数点以下が2桁以上となっていたら例外を投げる
             if (num[1].length() >= 2) {
                 throw new DistanceFormatException("距離の小数点以下の値が2桁以上です");
             }
-            // 距離の値が99,9を超えるもしくは負の値を取ったら例外を投げる
+            /// 距離の値が99,9を超えるもしくは負の値を取ったら例外を投げる
             if (num[0].length() >= 3 || Double.parseDouble(in) < 0) {
                 throw new DistanceFormatException("距離が負の値もしくは99.9より大きいです");
             }
@@ -103,18 +109,14 @@ public class taxiFee {
      */
     public static void timeFormatCheck(String[] in) throws DateFormatException {
         try {
-            /**
-             * 時刻が0～99の間であるかどうかを確認
-             */
+            /// 時刻が0～99の間であるかどうかを確認
             if (Integer.parseInt(in[0]) < 0 || in[0].length() >= 3) {
                 throw new DateFormatException("時刻が負の値もしくは100を超えています");
             }
             if (Integer.parseInt(in[1]) < 0 || Integer.parseInt(in[1]) >= 60) {
                 throw new DateFormatException("分数が負の値もしくは60を超えています");
             }
-            /**
-             * 秒.ミリ秒の形式チェック
-             */
+            /// 秒.ミリ秒の形式チェック
             if ((in[2].split(Pattern.quote("."))).length <= 1) {
                 throw new DateFormatException("時間にミリ秒が含まれていません");
             }
@@ -137,10 +139,10 @@ public class taxiFee {
      */
     public static void main(String[] args) {
         /**
-         * 時間, 走行距離
+         * 変数定義 時間, 走行距離
          */
-        ArrayList<Double[]> timeRecord = new ArrayList<Double[]>(); // 入力された時間
-        ArrayList<Double> distance = new ArrayList<Double>(); // 走行距離
+        ArrayList<Double[]> timeRecord = new ArrayList<Double[]>(); /// 入力された時間
+        ArrayList<Double> distance = new ArrayList<Double>(); /// 走行距離
         /**
          * ファイル名が指定されていない場合はコンソールを出力して終了する
          */
@@ -155,10 +157,10 @@ public class taxiFee {
         try {
             File file = new File(args[0]);
             BufferedReader stream = new BufferedReader(new FileReader(file));
-            String streamLine = stream.readLine(); // 初めの一行を読み込む
-            while (streamLine != null) { // 空行でない限りリストに時間と距離情報を追加していく
-                // 時間, 距離に分割
-                String[] data = streamLine.split(" "); // data[0] = 時間, data[1] = 距離
+            String streamLine = stream.readLine(); /// 初めの一行を読み込む
+            while (streamLine != null) { /// 空行でない限りリストに時間と距離情報を追加していく
+                /// 時間, 距離に分割
+                String[] data = streamLine.split(" "); /// data[0] = 時間, data[1] = 距離
                 /**
                  * 時間のフォーマットが適切かどうかをチェックする. チェックはsplitTimeにて時間を分割している際に行われる
                  */
@@ -171,7 +173,7 @@ public class taxiFee {
                 distance.add(Double.parseDouble(data[1]));
                 streamLine = stream.readLine();
             }
-            stream.close();
+            stream.close(); /// ファイルストリームを閉じる
 
             /**
              * 入力行が一行以下もしくは入力距離が0.0でない場合例外を投げる
@@ -187,18 +189,21 @@ public class taxiFee {
             System.exit(1);
         }
 
-        double totalDistance = 0.0; // 総走行距離(m)
-        double totalLowSpeedTime = 0.0; // 総低速時間(秒)
-        double intervalBaseRun = 1052.0; // 初乗りで走れる距離
-        double intervalOverRun = 237; // 料金を加算する距離間隔
-        double intervalLowSpeed = 90; // 低速運賃を区切る時間
-        int fee = 410; // (初期値は初乗り料金)
-        int overRunFee = 80; // 加算運賃(237mごとに80円)
-        int lowSpeedFee = 80; // 低速運賃料金(90秒ごとに80円)
+        /**
+         * 変数定義 変数が多すぎるのでもう少し減らしても問題ないと思う
+         */
+        double totalDistance = 0.0; /// 総走行距離(m)
+        double totalLowSpeedTime = 0.0; /// 総低速時間(秒)
+        double intervalBaseRun = 1052.0; /// 初乗りで走れる距離
+        double intervalOverRun = 237; /// 料金を加算する距離間隔
+        double intervalLowSpeed = 90; /// 低速運賃を加算する時間間隔
+        int fee = 410; /// 料金(初期値は初乗り料金)
+        int overRunFee = 80; /// 加算運賃(237mごとに80円)
+        int lowSpeedFee = 80; /// 低速運賃料金(90秒ごとに80円)
 
-        // 間の距離を計算
+        /// 間の距離を計算
         for (int i = 0; i < distance.size() - 1; i++) {
-            // 開始時刻, 終了時刻(hh,mm,ss.ms形式)
+            /// 開始時刻, 終了時刻(hh,mm,ss.ms形式)
             Double[] startTime = timeRecord.get(i);
             Double[] finishTime = timeRecord.get(i + 1);
             double intervalDistance = distance.get(i + 1);
@@ -209,9 +214,9 @@ public class taxiFee {
             for (int j = 0; j < 3; j++) {
                 intervalTime += (finishTime[j] - startTime[j]) * (3600 / Math.pow(60, j));
             }
-            // 小数点第4位以下は計算誤差となるためここで丸める
+            /// 小数点第4位以下は計算誤差となるためここで丸める
             intervalTime = ((double) Math.round(intervalTime * 1000) / 1000);
-            // 時間経過が正の値でない場合は例外を投げる
+            /// 時間経過が正の値でない場合は例外を投げる
             try {
                 if (intervalTime < 0.0) {
                     throw new MinusFormatException("経過時間が負の値です");

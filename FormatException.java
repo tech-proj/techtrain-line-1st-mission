@@ -1,3 +1,13 @@
+/**
+ * @file FormatException.java
+ * @author 398noe
+ * @since 2020/01/30
+ * @brief 入力書式の例外をまとめたもの
+ */
+
+/**
+ * FormatException 入力フォーマットが異なる事を示した例外
+ */
 class FormatException extends Exception {
     private static final long serialVersionUID = 1L;
 
@@ -6,6 +16,9 @@ class FormatException extends Exception {
     }
 }
 
+/**
+ * DateFormatException 時間のフォーマットが異なることを示した例外
+ */
 class DateFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
@@ -14,6 +27,9 @@ class DateFormatException extends FormatException {
     }
 }
 
+/**
+ * DistanceFormatException 距離のフォーマットが異なることを示した例外
+ */
 class DistanceFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +38,9 @@ class DistanceFormatException extends FormatException {
     }
 }
 
+/**
+ * LineFormatException 入力行のフォーマットが異なることを示した例外
+ */
 class LineFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +49,9 @@ class LineFormatException extends FormatException {
     }
 }
 
+/**
+ * NonZeroFormatException 入力数値が0.0以外であることを示した例外
+ */
 class NonZeroFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
@@ -38,6 +60,9 @@ class NonZeroFormatException extends FormatException {
     }
 }
 
+/**
+ * ZeroFormatException 数値が0.0であることを示した例外
+ */
 class ZeroFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +71,9 @@ class ZeroFormatException extends FormatException {
     }
 }
 
+/**
+ * MinusFormatException 数値が負の値であることを示した例外
+ */
 class MinusFormatException extends FormatException {
     private static final long serialVersionUID = 1L;
 
