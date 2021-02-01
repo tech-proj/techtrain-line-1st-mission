@@ -290,7 +290,7 @@ public class taxiFee {
             /**
              * ちょうど237mの場合はoverRunCountの値が1増えてしまうので overRunCountの値を1減らして調整する
              */
-            if (totalDistance % 237 == 0) {
+            if (totalDistance % intervalOverRun == 0) {
                 overRunCount -= 1;
             }
             /**
