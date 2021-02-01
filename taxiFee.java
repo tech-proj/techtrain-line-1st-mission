@@ -194,12 +194,12 @@ public class taxiFee {
          */
         double totalDistance = 0.0; /// 総走行距離(m)
         double totalLowSpeedTime = 0.0; /// 総低速時間(秒)
-        double intervalBaseRun = 1052.0; /// 初乗りで走れる距離
-        double intervalOverRun = 237; /// 料金を加算する距離間隔
-        double intervalLowSpeed = 90; /// 低速運賃を加算する時間間隔
+        final double intervalBaseRun = 1052.0; /// 初乗りで走れる距離
+        final double intervalOverRun = 237; /// 料金を加算する距離間隔
+        final double intervalLowSpeed = 90; /// 低速運賃を加算する時間間隔
         int fee = 410; /// 料金(初期値は初乗り料金)
-        int overRunFee = 80; /// 加算運賃(237mごとに80円)
-        int lowSpeedFee = 80; /// 低速運賃料金(90秒ごとに80円)
+        final int overRunFee = 80; /// 加算運賃(237mごとに80円)
+        final int lowSpeedFee = 80; /// 低速運賃料金(90秒ごとに80円)
 
         /// 間の距離を計算
         for (int i = 0; i < distance.size() - 1; i++) {
