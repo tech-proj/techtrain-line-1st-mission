@@ -235,7 +235,7 @@ public class taxiFee {
             /**
              * 総走行距離, 運賃を更新する
              */
-            Boolean midnight = isMidnight(startTime[0].intValue(), finishTime[0].intValue()) == true; // 深夜かどうか
+            Boolean midnight = isMidnight(startTime[0].intValue(), finishTime[0].intValue()); // 深夜かどうか
             Boolean lowSpeed = isLowSpeed(intervalSpeed); // 低速度かどうか
 
             /**
